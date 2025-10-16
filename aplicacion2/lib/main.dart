@@ -1,12 +1,35 @@
 // main.dart
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:aplicacion2/screens/splashscreen.dart'; // Importa el archivo splashscreen.dart
 import 'package:aplicacion2/screens/chats.dart'; // Importa el archivo chats.dart
 import 'package:aplicacion2/theme/theme.dart'; // Importa el tema
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+
+   try {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyAjzPAi630BI3W-qZHYtUMmJU4yJtnJCAM",
+        authDomain: "app2025-74973.firebaseapp.com",
+        projectId: "app2025-74973",
+        storageBucket: "app2025-74973.firebasestorage.app",
+        messagingSenderId: "579179769055",
+        appId: "1:579179769055:web:a9ab622ff7995c5c84cd6a",
+      ),
+    );
+   } on FirebaseException catch (e) {
+    // Si la app ya estaba inicializada, ignora el error
+    if (e.code != 'duplicate-app') rethrow;
+    }
+
+
   runApp(const MainApp());
 }
+   
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -20,7 +43,7 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system, // Cambia según la configuración del sistema
       home: const SplashScreen(), // La primera pantalla será el SplashScreen
     );
-  }
+  } 
 }
 
 // Aquí tienes la pantalla que será el home después del splash
